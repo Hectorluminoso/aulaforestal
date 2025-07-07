@@ -1,1 +1,552 @@
-<h1>Contenidos Aula Forestal</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Interactivo de Operaciones Forestales - CMPC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f0f4f8;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a; /* Deep Blue */
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #3b82f6; /* Bright Blue */
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-title svg {
+            margin-right: 1rem;
+            color: #3b82f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            transition: all 0.3s ease-in-out;
+            margin-bottom: 1.5rem;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transform: translateY(-5px);
+        }
+        .nav-menu {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-menu.hidden {
+            display: none;
+        }
+        #search-input::placeholder {
+            color: #9ca3af;
+        }
+        .highlight {
+            background-color: #fef3c7; /* yellow-200 */
+            border-radius: 3px;
+            padding: 1px 2px;
+        }
+        .hidden-section {
+            display: none;
+        }
+        .accordion-button {
+            width: 100%;
+            background-color: #f9fafb;
+            color: #1e3a8a;
+            cursor: pointer;
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .accordion-button:hover {
+            background-color: #eef2ff;
+        }
+        .accordion-content {
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-top: 0;
+            border-radius: 0 0 0.5rem 0.5rem;
+            display: none;
+        }
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <img src="https://placehold.co/150x50/1e3a8a/ffffff?text=CMPC" alt="Logo CMPC" class="h-8 w-auto">
+                </div>
+                <div class="hidden md:block">
+                    <nav class="flex items-center space-x-4">
+                        <a href="#registros" class="text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Registros</a>
+                        <a href="#responsabilidades" class="text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Responsabilidades</a>
+                        <a href="#seguridad" class="text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Seguridad</a>
+                        <a href="#medio-ambiente" class="text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Medio Ambiente</a>
+                        <a href="#operaciones" class="text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Operaciones</a>
+                    </nav>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-white hover:bg-blue-600 focus:outline-none">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="nav-menu hidden md:hidden">
+            <a href="#registros" class="block text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-base font-medium">Registros</a>
+            <a href="#responsabilidades" class="block text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-base font-medium">Responsabilidades</a>
+            <a href="#seguridad" class="block text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-base font-medium">Seguridad</a>
+            <a href="#medio-ambiente" class="block text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-base font-medium">Medio Ambiente</a>
+            <a href="#operaciones" class="block text-gray-600 hover:bg-blue-600 hover:text-white px-3 py-2 rounded-md text-base font-medium">Operaciones</a>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="bg-blue-700 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-white text-center">Portal Interactivo de Operaciones Forestales</h1>
+            <p class="text-center text-blue-200 mt-2">Encuentra rápidamente la información que necesitas.</p>
+            <div class="mt-6 max-w-2xl mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i data-lucide="search" class="text-gray-400"></i>
+                    </div>
+                    <input id="search-input" type="search" placeholder="Buscar por cargo, equipo, procedimiento, etc." class="block w-full pl-10 pr-3 py-3 border border-transparent rounded-md leading-5 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-700 focus:ring-white sm:text-sm">
+                </div>
+                 <p id="search-results-count" class="text-center text-white text-sm mt-2"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Section: Cartillas y Registros -->
+        <section id="registros" class="mb-12 searchable-section">
+            <h2 class="section-title">
+                <i data-lucide="file-text"></i>
+                Detalle de Cartillas y Registros
+            </h2>
+            <div class="card">
+                <p class="mb-6">A continuación se detallan los principales formularios y registros que deben ser completados en terreno, con los elementos clave a registrar en cada uno.</p>
+                <div class="space-y-4" id="accordion-container">
+                    <!-- IRF -->
+                    <div class="accordion-item">
+                        <button class="accordion-button">
+                            <span>Formato para Intervención y Riesgos en Faenas (IRF)</span>
+                            <i data-lucide="chevron-down" class="accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <h4 class="font-semibold text-blue-700 mb-2">Elementos a Registrar:</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-sm">
+                                <li><strong>Antecedentes Faena:</strong> Gerencia, Área, Nombre EESS, Fechas, Nº Trabajadores/Vehículos, Fundo.</li>
+                                <li><strong>Contactos de Emergencia:</strong> Fono Denuncia, Central DAC, Central de Incendios, Teléfono EESS y Jefe de Faena.</li>
+                                <li><strong>Coordenadas para Rescate:</strong> Latitud y Longitud (Datum WGS84).</li>
+                                <li><strong>Identificación de Peligros:</strong> Descripción detallada de la acción o condición insegura.</li>
+                                <li><strong>Localización y Expuestos:</strong> Lugar exacto del peligro y personas/equipos en riesgo.</li>
+                                <li><strong>Evaluación de Riesgo (Inicial y Residual):</strong> Cálculo del FIRSSO (Frecuencia, Impacto, Severidad).</li>
+                                <li><strong>Plan de Control:</strong> Medidas de control jerarquizadas para mitigar el riesgo.</li>
+                                <li><strong>Responsables y Fechas:</strong> Nombres de los responsables de implementar los controles y plazos.</li>
+                                <li><strong>Verificación:</strong> Firma y fecha del control de implementación (Implementado / No implementado).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Autocontrol Diario de Máquinas -->
+                    <div class="accordion-item">
+                        <button class="accordion-button">
+                            <span>Autocontrol Diario de Máquinas</span>
+                            <i data-lucide="chevron-down" class="accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <h4 class="font-semibold text-blue-700 mb-2">Puntos de Inspección Diaria (Marcar SI/NO):</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-sm">
+                                <li><strong>Derecho a Operar (Reparación Inmediata):</strong> Sistema de escape, fugas, recalentamiento, extintor, cables (skidder/torres), frenos, protecciones de cabina.</li>
+                                <li><strong>Derecho a Reparar (Plazo 3 días):</strong> Focos, manómetro de temperatura, vidrios/limpiaparabrisas, ventilación, cinturón de seguridad, asiento, puntos de apoyo.</li>
+                                <li><strong>Registro Diario:</strong> El operador debe registrar su firma diariamente, confirmando la inspección.</li>
+                                <li><strong>Anomalías:</strong> El operador es responsable de informar inmediatamente al Jefe de Faena sobre cualquier falla detectada.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Cartilla Autocontrol de Camiones -->
+                    <div class="accordion-item">
+                        <button class="accordion-button">
+                            <span>Cartilla de Autocontrol de Transporte</span>
+                            <i data-lucide="chevron-down" class="accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <h4 class="font-semibold text-blue-700 mb-2">Elementos a Evaluar (Nota: B=Bueno, R=Regular, M=Malo):</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-sm">
+                                <li><strong>Cabina y Componentes:</strong> Estado interior/exterior, cinturón de seguridad, luces, frenos, neumáticos.</li>
+                                <li><strong>Carrocería (Trozos):</strong> Estado de atriles, seguros de estacas, pernos de fijación, muela de acoplamiento, conexiones de freno.</li>
+                                <li><strong>Remolque (Trozos):</strong> Luces, frenos, neumáticos, estado de la lanza, cadenas de seguridad.</li>
+                                <li><strong>Accesorios:</strong> Extintor certificado, triángulos/conos, botiquín, letreros de identificación.</li>
+                                <li><strong>Registro de Control:</strong> Firma del controlador y del conductor, fecha y hora del control.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Manejo de Residuos -->
+                    <div class="accordion-item">
+                        <button class="accordion-button">
+                            <span>Registros de Manejo de Residuos</span>
+                            <i data-lucide="chevron-down" class="accordion-icon"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <h4 class="font-semibold text-blue-700 mb-2">Formulario "Control del Manejo de Residuos en Transporte Interno":</h4>
+                             <ul class="list-disc pl-5 space-y-2 text-sm">
+                                <li><strong>Datos Generales:</strong> Empresa de Servicio, Fecha, Área, Predio.</li>
+                                <li><strong>Detalle de Residuos:</strong> Tipo (Peligroso / No Peligroso), Nº de recipientes, Peso estimado.</li>
+                                <li><strong>Transporte y Destino:</strong> Nombre del conductor, Nombre del destino autorizado.</li>
+                                <li><strong>Firmas:</strong> Firma de quien entrega en faena y de quien recibe.</li>
+                            </ul>
+                             <h4 class="font-semibold text-blue-700 mt-4 mb-2">Registro de Residuos Peligrosos en Lugar de Recogida / Bodega:</h4>
+                             <ul class="list-disc pl-5 space-y-2 text-sm">
+                                <li><strong>Identificación:</strong> Nombre del residuo peligroso.</li>
+                                <li><strong>Estado y Cantidad:</strong> Líquido/Sólido, Cantidad en Kg/L.</li>
+                                <li><strong>Fechas:</strong> Fecha de ingreso y fecha de egreso.</li>
+                                <li><strong>Características de Peligrosidad (Bodega):</strong> Toxicidad (Aguda, Crónica, Extrínseca), Reactividad, Corrosividad, Inflamabilidad.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Responsabilidades por Cargo -->
+        <section id="responsabilidades" class="mb-12 searchable-section">
+            <h2 class="section-title">
+                <i data-lucide="users-2"></i>
+                Resumen de Responsabilidades por Cargo
+            </h2>
+            <div class="space-y-8">
+                <div class="card">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center"><i data-lucide="user-check" class="mr-2"></i>Jefe de Faena</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Seguridad y Riesgos</h4>
+                            <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                                <li>Liderar y actualizar el **IRF** (Intervención y Riesgos de Faenas).</li>
+                                <li>Asegurar capacitación del personal ("Derecho a Saber").</li>
+                                <li>Detener operaciones en condiciones inseguras.</li>
+                                <li>Gestionar emergencias (accidentes, derrames, incendios).</li>
+                                <li>Controlar acceso de terceros y uso de EPP.</li>
+                                <li>Verificar señalización de advertencia.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Medio Ambiente y Residuos</h4>
+                            <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                                <li>Planificar para proteger **AAVC**, agua y especies.</li>
+                                <li>Responsable del manejo de residuos (separación, registro).</li>
+                                <li>Supervisar manejo de derrames.</li>
+                                <li>Planificar y autorizar **vías de saca**.</li>
+                                <li>Informar sobre plagas o presencia de no autorizados.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Operaciones y Calidad</h4>
+                            <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                                <li>Mantener actualizado el **Libro de Faena**.</li>
+                                <li>Asegurar disponibilidad de documentación en terreno.</li>
+                                <li>Supervisar calidad (tocones, trozado, arrumado).</li>
+                                <li>Coordinar etapas de la cosecha.</li>
+                                <li>Gestionar personal e instalaciones (comedores, baños).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center"><i data-lucide="clipboard-check" class="mr-2"></i>Supervisor EESS / CMPC</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-sm">
+                            <li>**Monitorear** en terreno el cumplimiento de instructivos.</li>
+                            <li>**Verificar** la implementación de controles del IRF y PCE.</li>
+                            <li>**Visar** documentación de terreno y registros de autocontrol.</li>
+                            <li>**Archivar** originales del Libro de Faena.</li>
+                            <li>**Cerrar planes de acción** de no conformidades.</li>
+                            <li>Autorizar operaciones o condiciones excepcionales.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center"><i data-lucide="shield-check" class="mr-2"></i>Asesor en Prevención de Riesgos (PR)</h3>
+                         <ul class="list-disc pl-5 space-y-2 text-sm">
+                            <li>Elaborar y validar técnicamente el **IRF** y **PCE**.</li>
+                            <li>Realizar **capacitaciones** de seguridad, salud y medio ambiente.</li>
+                            <li>Realizar **visitas semanales** a faenas y registrar observaciones.</li>
+                            <li>**Acreditar competencias** de trabajadores en roles críticos.</li>
+                            <li>**Reportar** enfermedades profesionales o incapacidades.</li>
+                            <li>Asegurar funcionamiento del Comité Paritario.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Seguridad y Emergencias -->
+        <section id="seguridad" class="mb-12 searchable-section">
+            <h2 class="section-title">
+                <i data-lucide="alert-triangle"></i>
+                Seguridad, Riesgos y Emergencias
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Manejo de Emergencias</h3>
+                    <h4 class="font-semibold text-blue-700 mt-4">Derrames de Combustibles/Lubricantes</h4>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                        <li><strong>Menor a 10 lts:</strong> Cubrir con tierra y contener.</li>
+                        <li><strong>10 a 100 lts (Incidente):</strong> Delimitar con dique, absorber y recoger material contaminado.</li>
+                        <li><strong>Superior a 100 lts (Emergencia):</strong> Actuar como en incidente y solicitar apoyo.</li>
+                        <li>Cualquier derrame en **cursos de agua** es una emergencia y requiere contención inmediata.</li>
+                    </ul>
+                    <h4 class="font-semibold text-blue-700 mt-4">Incendios Forestales</h4>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                        <li>Avisar estado de alerta (Amarilla/Roja).</li>
+                        <li>Reportar focos al Jefe de Faena o a la central: **800 44 1000**.</li>
+                        <li>Faenas deben tener cuadrillas capacitadas y equipamiento.</li>
+                        <li>Prohibido fumar y hacer fuego en temporada de riesgo.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Protocolos Clave</h3>
+                     <h4 class="font-semibold text-blue-700 mt-4">Determinación de Peligros (IRF)</h4>
+                    <p class="text-sm mt-2">Antes de iniciar, se debe completar el registro de **Intervención y Riesgos de Faenas (IRF)**, considerando todos los peligros (seguridad, ambiente, incendios) y sus medidas de control.</p>
+                    <h4 class="font-semibold text-blue-700 mt-4">Hallazgos Arqueológicos</h4>
+                    <ol class="list-decimal pl-5 mt-2 space-y-1 text-sm">
+                        <li><strong>Paralizar trabajos</strong> de inmediato.</li>
+                        <li>Prohibido tocar, mover o alterar el hallazgo.</li>
+                        <li>Informar al Jefe de Faena y Administrador Patrimonial.</li>
+                        <li>El Administrador notifica a las gerencias y al Consejo de Monumentos Nacionales.</li>
+                        <li>Reanudar operaciones solo con autorización escrita.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Medio Ambiente -->
+        <section id="medio-ambiente" class="mb-12 searchable-section">
+            <h2 class="section-title">
+                <i data-lucide="leaf"></i>
+                Protección del Medio Ambiente
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Flora y Fauna Protegida</h3>
+                    <p class="text-sm mb-4">Se debe proteger activamente la biodiversidad. Es mandatorio conocer e identificar las especies protegidas.</p>
+                    <h4 class="font-semibold text-blue-700">Medidas Precautorias</h4>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                        <li>Verificar y registrar presencia de especies en el IRF.</li>
+                        <li>Capacitar al personal sobre su importancia.</li>
+                        <li>Prohibida la caza, pesca, captura y corta.</li>
+                        <li>No dañar el entorno de la especie.</li>
+                        <li>Reportar nuevos avistamientos a: **avistamientos@cmpc.cl**.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Manejo de Residuos</h3>
+                     <p class="text-sm mb-4">La gestión adecuada de residuos es crucial para minimizar el impacto ambiental.</p>
+                    <h4 class="font-semibold text-blue-700">Principios Clave</h4>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                        <li>**Separación:** Domiciliarios, industriales y peligrosos.</li>
+                        <li>**Registro:** Trazabilidad con formularios oficiales.</li>
+                        <li>**Almacenamiento:** Lugar de recogida aislado, techado y con contención.</li>
+                        <li>**Transporte:** En vehículos autorizados y con Hojas de Seguridad.</li>
+                        <li>**Disposición Final:** A través de empresas autorizadas y con declaración SIDREP.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Áreas de Alto Valor (AAVC)</h3>
+                    <p class="text-sm mb-4">Las AAVC requieren un cuidado especial para conservar sus atributos únicos.</p>
+                    <h4 class="font-semibold text-blue-700">Protocolo AAVC</h4>
+                     <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                        <li>Ratificar su ubicación en planos antes de operar.</li>
+                        <li>Identificar y registrar su presencia en el IRF.</li>
+                        <li>Capacitar al personal sobre su importancia y protección.</li>
+                        <li>Si ocurre un daño, detener la operación, informar y aplicar acciones correctivas.</li>
+                        <li>Verificar el estado del AAVC al finalizar la faena.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Operaciones -->
+        <section id="operaciones" class="mb-12 searchable-section">
+            <h2 class="section-title">
+                <i data-lucide="truck"></i>
+                Operaciones, Maquinaria y Transporte
+            </h2>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 card">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Operación de Maquinaria y Vehículos</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Autocontrol Diario de Máquinas</h4>
+                            <p class="text-sm mt-1">Inspección diaria obligatoria. Fallas en puntos de "Derecho a Operar" (frenos, fugas, extintor, etc.) exigen **detención inmediata**.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Normas de Desplazamiento</h4>
+                            <p class="text-sm mt-1">Evitar tránsito en zonas de protección. Velocidad máxima: **40 km/h** en ripio, **90 km/h** en asfalto. Usar luces bajas y cinturón de seguridad siempre.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Mantención en Terreno</h4>
+                            <p class="text-sm mt-1">Realizar en lugares habilitados, señalizados y con medidas para evitar derrames (cobertor impermeable). Bloquear equipos antes de intervenir.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                     <h3 class="text-xl font-bold text-gray-900 mb-4">Roles Específicos</h3>
+                     <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Motosierrista</h4>
+                            <p class="text-sm mt-1">Rol de alto riesgo. Requiere EPP anticorte, técnicas de volteo seguras, y comunicación constante bajo el sistema "volteo unipersonal". **Nunca trabajar solo**.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Operador de Maquinaria</h4>
+                            <p class="text-sm mt-1">Responsable del autocontrol del equipo y de respetar distancias de seguridad (mínimo 15m).</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-700">Conductor</h4>
+                            <p class="text-sm mt-1">Responsable del autocontrol del vehículo, aseguramiento de carga y cumplimiento de normas de tránsito.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12 py-8 border-t border-gray-200">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2024 CMPC - Portal Interactivo de Operaciones Forestales.</p>
+            <p class="text-xs mt-2">Este es un documento informativo basado en los instructivos y procedimientos de la compañía.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Lucide icons
+            lucide.createIcons();
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
+            for (let link of mobileMenuLinks) {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            }
+
+            // Accordion functionality
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionContainer.addEventListener('click', function(event) {
+                const button = event.target.closest('.accordion-button');
+                if (!button) return;
+
+                const item = button.parentElement;
+                const content = item.querySelector('.accordion-content');
+                const icon = button.querySelector('.accordion-icon');
+
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                icon.style.transform = content.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0deg)';
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            const mainContent = document.getElementById('main-content');
+            const sections = mainContent.querySelectorAll('.searchable-section');
+            const resultsCount = document.getElementById('search-results-count');
+
+            let highlightInterval;
+
+            function performSearch() {
+                const query = searchInput.value.toLowerCase().trim();
+                
+                // Clear previous highlights
+                clearHighlights();
+
+                if (query === "") {
+                    sections.forEach(section => section.classList.remove('hidden-section'));
+                    resultsCount.textContent = "";
+                    return;
+                }
+
+                let foundCount = 0;
+                sections.forEach(section => {
+                    const textContent = section.textContent.toLowerCase();
+                    if (textContent.includes(query)) {
+                        section.classList.remove('hidden-section');
+                        highlightText(section, query);
+                        foundCount++;
+                    } else {
+                        section.classList.add('hidden-section');
+                    }
+                });
+                
+                resultsCount.textContent = `${foundCount} sección(es) encontrada(s).`;
+            }
+
+            function highlightText(node, query) {
+                if (node.nodeType === 3) { // Text node
+                    const text = node.nodeValue.toLowerCase();
+                    const matchIndex = text.indexOf(query);
+                    if (matchIndex > -1) {
+                        const originalText = node.nodeValue;
+                        const matchText = originalText.substring(matchIndex, matchIndex + query.length);
+                        const beforeText = originalText.substring(0, matchIndex);
+                        const afterText = originalText.substring(matchIndex + query.length);
+
+                        const span = document.createElement('span');
+                        span.className = 'highlight';
+                        span.textContent = matchText;
+
+                        const parent = node.parentNode;
+                        parent.insertBefore(document.createTextNode(beforeText), node);
+                        parent.insertBefore(span, node);
+                        parent.insertBefore(document.createTextNode(afterText), node);
+                        parent.removeChild(node);
+                    }
+                } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+                    Array.from(node.childNodes).forEach(child => highlightText(child, query));
+                }
+            }
+
+            function clearHighlights() {
+                const highlighted = mainContent.querySelectorAll('span.highlight');
+                highlighted.forEach(span => {
+                    const parent = span.parentNode;
+                    parent.replaceChild(document.createTextNode(span.textContent), span);
+                    parent.normalize(); // Merges adjacent text nodes
+                });
+            }
+
+            searchInput.addEventListener('input', performSearch);
+        });
+    </script>
+</body>
+</html>
+
